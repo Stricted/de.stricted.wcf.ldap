@@ -13,7 +13,7 @@ class LDAP {
 	 * LDAP resource id
 	 * @var	object
 	 */
-	protected $ldap = Null;	
+	protected $ldap = null;	
 	
 	/**
 	 * LDAP DN
@@ -138,4 +138,3 @@ class LDAP {
 		ldap_close($this->ldap);
 	}
 }
-?>
