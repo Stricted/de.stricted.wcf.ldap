@@ -78,7 +78,7 @@ class LDAP {
 		or see here: http://techiesf1.blogspot.de/2012/03/add-ldap-user-from-php.html
 		*/
 		if (is_array($user) && !empty($user)) {
-			if (ldap_add($this->ldap, "uid=".$user['uid'].",".$this->dn, $user) {
+			if (ldap_add($this->ldap, "uid=".$user['uid'].",".$this->dn, $user)) {
 				return true;
 			}
 		}
