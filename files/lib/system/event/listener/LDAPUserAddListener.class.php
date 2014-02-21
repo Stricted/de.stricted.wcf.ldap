@@ -15,8 +15,7 @@ class LDAPUserAddListener implements IEventListener {
 	 * @see IEventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
-		if ($className == 'wcf\form\RegisterForm' || $className == 'wcf\acp\form\UserAddForm') {
-			$authserv = AuthServ::getInstance();
+		if (USE_LDAP && ($className == 'wcf\form\RegisterForm' || $className == 'wcf\acp\form\UserAddForm')) {
 			if ($eventName == "validate") {
 			}
 			else if ($eventName == "saved") {

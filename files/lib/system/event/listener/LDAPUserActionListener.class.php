@@ -16,7 +16,7 @@ class LDAPUserActionListener implements IEventListener {
 	 * @see IEventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
-		if ($className == 'wcf\data\user\UserAction') {
+		if (USE_LDAP && $className == 'wcf\data\user\UserAction') {
 			switch ($eventObj->getActionName()) {
 				case "delete":
 					break;

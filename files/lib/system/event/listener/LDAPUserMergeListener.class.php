@@ -16,7 +16,7 @@ class LDAPUserMergeListener implements IEventListener {
 	 * @see IEventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
-		if ($className == 'wcf\acp\form\UserMergeForm') {
+		if (USE_LDAP && $className == 'wcf\acp\form\UserMergeForm') {
 		}
 	}
 }

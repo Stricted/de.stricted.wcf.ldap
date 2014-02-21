@@ -19,7 +19,7 @@
 	<instructions type="install">
 		<instruction type="file">files.tar</instruction>
 		<instruction type="eventListener">eventlistener.xml</instruction>
-		<!--<instruction type="option">options.xml</instruction>-->
+		<instruction type="option">options.xml</instruction>
 		<!--<instruction type="language">language/*.xml</instruction>-->
 	</instructions>
 </package>

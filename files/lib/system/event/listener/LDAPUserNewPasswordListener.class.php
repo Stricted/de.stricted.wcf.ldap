@@ -17,7 +17,7 @@ class LDAPUserNewPasswordListener implements IEventListener {
 	 * @see IEventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
-		if ($className == 'wcf\form\NewPasswordForm') {
+		if (USE_LDAP && $className == 'wcf\form\NewPasswordForm') {
 		}
 	}
 }

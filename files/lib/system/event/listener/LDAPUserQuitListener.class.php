@@ -16,7 +16,7 @@ class LDAPUserQuitListener implements IEventListener {
 	 * @see IEventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
-		if ($className == 'wcf\system\cronjob\UserQuitCronjob') {
+		if (USE_LDAP && $className == 'wcf\system\cronjob\UserQuitCronjob') {
 			if ($eventName == "execute") {
 			}
 		}

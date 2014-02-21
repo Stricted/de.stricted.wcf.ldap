@@ -13,6 +13,8 @@ class LDAPUserAuthenticationListener implements IEventListener {
 	 * @see IEventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
+		if (USE_LDAP) {
 			$eventObj->className = 'wcf\system\user\authentication\LDAPUserAuthentication';
+		}
 	}
 }

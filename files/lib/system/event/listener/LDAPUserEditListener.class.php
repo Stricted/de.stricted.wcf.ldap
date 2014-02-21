@@ -15,16 +15,18 @@ class LDAPUserEditListener implements IEventListener {
 	 * @see IEventListener::execute()
 	 */
 	public function execute($eventObj, $className, $eventName) {
-		if ($className == 'wcf\form\AccountManagementForm') {
-			if ($eventName == "validate") {
+		if (USE_LDAP) {
+			if ($className == 'wcf\form\AccountManagementForm') {
+				if ($eventName == "validate") {
+				}
+				else if ($eventName == "saved") {
+				}
 			}
-			else if ($eventName == "saved") {
-			}
-		}
-		else if ($className == 'wcf\acp\form\UserEditForm') {
-			if ($eventName == "validate") {
-			}
-			else if ($eventName == "saved") {
+			else if ($className == 'wcf\acp\form\UserEditForm') {
+				if ($eventName == "validate") {
+				}
+				else if ($eventName == "saved") {
+				}
 			}
 		}
 	}
