@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/eventListener.xsd">
+	<import>
+		<!-- LOGIN -->
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\system\user\authentication\UserAuthenticationFactory]]></eventclassname>
+			<eventname>init</eventname>
+			<environment>user</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserAuthenticationListener]]></listenerclassname>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\system\user\authentication\UserAuthenticationFactory]]></eventclassname>
+			<eventname>init</eventname>
+			<environment>admin</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserAuthenticationListener]]></listenerclassname>
+		</eventlistener>
+		<!-- /LOGIN -->
+		<!-- REGISTER -->
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\form\RegisterForm]]></eventclassname>
+			<eventname>validate</eventname>
+			<environment>user</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserAddListener]]></listenerclassname>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\form\RegisterForm]]></eventclassname>
+			<eventname>saved</eventname>
+			<environment>user</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserAddListener]]></listenerclassname>
+		</eventlistener>
+		
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\acp\form\UserAddForm]]></eventclassname>
+			<eventname>validate</eventname>
+			<environment>admin</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserAddListener]]></listenerclassname>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\acp\form\UserAddForm]]></eventclassname>
+			<eventname>saved</eventname>
+			<environment>admin</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserAddListener]]></listenerclassname>
+		</eventlistener>
+		<!-- /REGISTER -->
+		<!-- EDIT -->
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\form\AccountManagementForm]]></eventclassname>
+			<eventname>validate</eventname>
+			<environment>user</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserEditListener]]></listenerclassname>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\form\AccountManagementForm]]></eventclassname>
+			<eventname>saved</eventname>
+			<environment>user</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserEditListener]]></listenerclassname>
+		</eventlistener>
+		
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\acp\form\UserEditForm]]></eventclassname>
+			<eventname>validate</eventname>
+			<environment>admin</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserEditListener]]></listenerclassname>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\acp\form\UserEditForm]]></eventclassname>
+			<eventname>saved</eventname>
+			<environment>admin</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserEditListener]]></listenerclassname>
+		</eventlistener>
+		<!-- /EDIT -->
+		<!-- MERGE -->
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\acp\form\UserMergeForm]]></eventclassname>
+			<eventname>saved</eventname>
+			<environment>admin</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserMergeListener]]></listenerclassname>
+		</eventlistener>
+		<!-- /MERGE -->
+		<!-- NEWPASSWORD -->
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\form\NewPasswordForm]]></eventclassname>
+			<eventname>saved</eventname>
+			<environment>user</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserNewPasswordListener]]></listenerclassname>
+		</eventlistener>
+		<!-- /NEWPASSWORD -->
+		<!-- DELETE -->
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\data\user\UserAction]]></eventclassname>
+			<eventname>finalizeAction</eventname>
+			<environment>admin</environment>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserActionListener]]></listenerclassname>
+		</eventlistener>
+		<eventlistener>
+			<eventclassname><![CDATA[wcf\system\cronjob\UserQuitCronjob]]></eventclassname>
+			<eventname>execute</eventname>
+			<listenerclassname><![CDATA[wcf\system\event\listener\LDAPUserQuitListener]]></listenerclassname>
+		</eventlistener>
+		<!-- /DELETE -->
+	</import>
+</data>

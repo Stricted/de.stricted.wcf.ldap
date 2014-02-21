@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package name="de.stricted.wcf.ldap" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/maelstrom/package.xsd">
+	<packageinformation>
+		<packagename><![CDATA[LDAP Authentication]]></packagename>
+		<packagedescription><![CDATA[advenced LDAP Authentication]]></packagedescription>
+		<version>1.0.0</version>
+		<date>2014-02-21</date>
+	</packageinformation>
+	
+	<authorinformation>
+		<author>Stricted</author>
+		<authorurl>http://stricted.de</authorurl>
+	</authorinformation>
+	
+	<requiredpackages>
+		<requiredpackage minversion="2.0.0">com.woltlab.wcf</requiredpackage>
+	</requiredpackages>
+	
+	<instructions type="install">
+		<instruction type="file">files.tar</instruction>
+		<instruction type="eventListener">eventlistener.xml</instruction>
+		<!--<instruction type="option">options.xml</instruction>-->
+		<!--<instruction type="language">language/*.xml</instruction>-->
+	</instructions>
+</package>
