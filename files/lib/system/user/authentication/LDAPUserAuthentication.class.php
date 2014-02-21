@@ -8,6 +8,7 @@ use wcf\data\user\UserProfileAction;
 use wcf\system\exception\UserInputException;
 use wcf\system\language\LanguageFactory;
 use wcf\util\HeaderUtil;
+use wcf\util\LDAP;
 use wcf\util\PasswordUtil;
 use wcf\util\UserUtil;
 use wcf\system\WCF;
@@ -30,16 +31,19 @@ class LDAPUserAuthentication extends DefaultUserAuthentication {
 	 * @return	boolean
 	 */
 	protected function checkWCFUser($username, $password) {
-		if (UserUtil::isValidEmail($username))
+		if (UserUtil::isValidEmail($username)) {
 			$user = User::getUserByEmail($username);
-		else
+		}
+		else {
 			$user = User::getUserByUsername($username);
+		}
 		
 		if ($user->userID != 0) {
 			if ($user->checkPassword($password)) {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 	
@@ -51,7 +55,40 @@ class LDAPUserAuthentication extends DefaultUserAuthentication {
 	 * @return	boolean
 	 */
 	protected function checkLDAPUser($username, $password) {
-		return false; /* will be added later */
+		$ldap = new LDAP();
+		// connect
+		$connect = $ldap->connect(LDAP_SERVER_HOST, LDAP_SERVER_PORT, LDAP_SERVER_DN);
+		if ($connect) {
+			// find user
+			if ($ldap->bind($username, $password)) {
+				// try to find user email
+				if (($search = $ldap->search('uid='.$username))) {
+					$results = $ldap->get_entries($search);
+					if (isset($results[0]['mail'][0])) {
+						$this->email = $results[0]['mail'][0];
+					}
+				}
+				
+				$ldap->close();
+				return true;
+			}
+			else if (UserUtil::isValidEmail($username) && ($search = $ldap->search('mail='.$username))) {
+				$results = $ldap->get_entries($search);
+				if(isset($results[0]['uid'][0])) {
+					$this->username = $results[0]['uid'][0];
+					$ldap->close($connect);
+					
+					return $this->checkLDAPUser($this->ldapusername, $password);
+				}
+			}
+		}
+		// no ldap user or connection -> check user from wcf
+		$ldap->close($connect);
+		if(LDAP_CHECK_WCF) {
+			return $this->checkWCFUser($username, $password);
+		}
+		
+		return false;
 	}
 
 	/**
@@ -66,10 +103,12 @@ class LDAPUserAuthentication extends DefaultUserAuthentication {
 			$username = $this->username;
 		}
 		
-		if (UserUtil::isValidEmail($username))
+		if (UserUtil::isValidEmail($username)) {
 			$user = User::getUserByEmail($username);
-		else
+		}
+		else {
 			$user = User::getUserByUsername($username);
+		}
 		
 		if ($user->userID == 0) {
 			// create user
@@ -107,7 +146,8 @@ class LDAPUserAuthentication extends DefaultUserAuthentication {
 				$action = new UserProfileAction(array($userEditor), 'updateUserOnlineMarking');
 				$action->executeAction();
 
-			} else {
+			}
+			else {
 				throw new UserInputException('password', 'false');
 			}
 		}
