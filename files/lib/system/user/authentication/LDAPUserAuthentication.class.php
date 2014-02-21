@@ -74,7 +74,7 @@ class LDAPUserAuthentication extends DefaultUserAuthentication {
 			}
 			else if (UserUtil::isValidEmail($username) && ($search = $ldap->search('mail='.$username))) {
 				$results = $ldap->get_entries($search);
-				if(isset($results[0]['uid'][0])) {
+				if (isset($results[0]['uid'][0])) {
 					$this->username = $results[0]['uid'][0];
 					$ldap->close($connect);
 					
@@ -84,7 +84,7 @@ class LDAPUserAuthentication extends DefaultUserAuthentication {
 		}
 		// no ldap user or connection -> check user from wcf
 		$ldap->close($connect);
-		if(LDAP_CHECK_WCF) {
+		if (LDAP_CHECK_WCF) {
 			return $this->checkWCFUser($username, $password);
 		}
 		
@@ -112,7 +112,7 @@ class LDAPUserAuthentication extends DefaultUserAuthentication {
 		
 		if ($user->userID == 0) {
 			// create user
-			if (!empty($this->email) && isset($this->email)) {
+			if (isset($this->email) && !empty($this->email)) {
 				$groupIDs = UserGroup::getGroupIDsByType(array(UserGroup::EVERYONE, UserGroup::GUESTS, UserGroup::USERS));
 				$languageID = array(LanguageFactory::getInstance()->getDefaultLanguageID());
 				$addDefaultGroups = true;
